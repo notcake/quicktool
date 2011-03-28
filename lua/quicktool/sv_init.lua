@@ -1,0 +1,13 @@
+AddCSLuaFile ("quicktool/actiontree.lua")
+AddCSLuaFile ("quicktool/hotkeys.lua")
+AddCSLuaFile ("quicktool/search.lua")
+
+AddCSLuaFile ("quicktool/ui/imagecacheentry.lua")
+AddCSLuaFile ("quicktool/ui/imagecache.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolimage.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolmenuitem.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolmenuspacer.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolhotkeymenuitem.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolmenu.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolsearch.lua")
+AddCSLuaFile ("quicktool/ui/quicktoolhotkeys.lua")
