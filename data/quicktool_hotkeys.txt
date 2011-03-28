@@ -1,6 +1,6 @@
 Hotkeys
 {
-	escapekey j
+	escapekey q
 	upkey j
 	keys
 	{

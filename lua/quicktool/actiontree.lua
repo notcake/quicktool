@@ -22,11 +22,12 @@ function ActionTree:Deserialize (node)
 	if node.keys then
 		self.Type = "tree"
 		self.Children = {}
-		self.EscapeKey = node.escapekey
+		self.EscapeKey = node.escapekey or self.EscapeKey
 		self.UpKey = node.upkey or self.UpKey
 		for key, childnode in pairs (node.keys) do
 			local child = QuickTool.ActionTree ()
 			self.Children [key:lower ()] = child
+			child:SetEscapeKey (self:GetEscapeKey ())
 			child:SetUpKey (self:GetUpKey ())
 			
 			if type (childnode) == "table" then
