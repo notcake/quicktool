@@ -29,7 +29,7 @@ function PANEL:Init ()
 		if self.Menu:GetHighlightedItem () then
 			self:OnItemChosen (self.Menu:GetHighlightedItem ().Name)
 		else
-			self.Searchbox:RequestFocus ()
+			self:SetVisible (false)
 		end
 	end
 	
@@ -39,11 +39,7 @@ function PANEL:Init ()
 		elseif key == KEY_DOWN then
 			self:SelectNext ()
 		elseif key == KEY_TAB then
-			timer.Simple (0, function ()
-				if textbox:IsValid () then
-					textbox:RequestFocus ()
-				end
-			end)
+			self:SetVisible (false)
 		end
 	end
 	
