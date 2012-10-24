@@ -7,7 +7,7 @@ function ImageCache:ctor ()
 	
 	self.LoadInterval = 0.1
 	self.LastLoadTime = 0
-	self:GetImage ("gui/silkicons/arrow_refresh")
+	self:GetImage ("icon16/arrow_refresh.png")
 end
 
 function ImageCache:GetImage (image)
@@ -16,7 +16,7 @@ function ImageCache:GetImage (image)
 		return self.Images [image]
 	end	
 	if SysTime () - self.LastLoadTime < self.LoadInterval then
-		return self:GetImage ("gui/silkicons/arrow_refresh")
+		return self:GetImage ("icon16/arrow_refresh.png")
 	end
 	self.LastLoadTime = SysTime ()
 	

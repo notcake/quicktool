@@ -10,7 +10,7 @@ function PANEL:Init ()
 	self.Dash:SetText (" - ")
 	self.Dash:SetVisible (false)
 	
-	self:SetIcon ("gui/silkicons/world")
+	self:SetIcon ("icon16/world.png")
 end
 
 function PANEL:PerformLayout ()
@@ -47,17 +47,17 @@ function PANEL:SetActionTree (tree)
 	
 	if tree then
 		if type == "tree" then
-			self:SetIcon ("gui/silkicons/folder_go")
+			self:SetIcon ("icon16/folder_go.png")
 		elseif type == "command" then
-			self:SetIcon ("gui/silkicons/car")
+			self:SetIcon ("icon16/car.png")
 		elseif type == "tool" then
 			if tree:CanUseTool () then
-				self:SetIcon ("gui/silkicons/wrench")
+				self:SetIcon ("icon16/wrench.png")
 			else
-				self:SetIcon ("gui/silkicons/check_off")
+				self:SetIcon ("icon16/cross.png")
 			end
 		else
-			self:SetIcon ("gui/silkicons/exclamation")
+			self:SetIcon ("icon16/exclamation.png")
 		end
 	end
 end

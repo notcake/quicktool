@@ -8,7 +8,7 @@ QuickTool.HotkeyMenu = nil
 function QuickTool.LoadHotkeys ()
 	QuickTool.Hotkeys:Clear ()
 	
-	local data = file.Read ("quicktool_hotkeys.txt") or ""
+	local data = file.Read ("data/quicktool_hotkeys.txt", "GAME") or ""
 	QuickTool.Hotkeys:Deserialize (util.KeyValuesToTable (data))
 end
 

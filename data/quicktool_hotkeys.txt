@@ -256,6 +256,10 @@ Hotkeys
 				{
 					tool nocollide
 				}
+				r
+				{
+					tool rope
+				}
 				w
 				{
 					tool weld_ez

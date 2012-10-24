@@ -1,10 +1,9 @@
-local ActionTree = {}
-
-QuickTool.ActionTree = QuickTool.MakeConstructor (ActionTree)
+local self = {}
+QuickTool.ActionTree = QuickTool.MakeConstructor (self)
 
 local gmod_tool = nil
 
-function ActionTree:ctor (...)
+function self:ctor (...)
 	self.Children = nil
 	self.Description = nil
 	
@@ -16,7 +15,7 @@ function ActionTree:ctor (...)
 end
 
 -- Serialization
-function ActionTree:Deserialize (node)
+function self:Deserialize (node)
 	self.Description = node.description
 	
 	if node.keys then
@@ -45,7 +44,7 @@ function ActionTree:Deserialize (node)
 	end
 end
 
-function ActionTree:Serialize ()
+function self:Serialize ()
 	-- TODO: Implement this properly
 	local node = {}
 	if self.Type == "tree" then
@@ -58,7 +57,7 @@ function ActionTree:Serialize ()
 	return node
 end
 
-function ActionTree:CanUseTool ()
+function self:CanUseTool ()
 	if self.Type == "tool" then
 		gmod_tool = gmod_tool or weapons.Get ("gmod_tool")
 		if not gmod_tool then
@@ -70,27 +69,27 @@ function ActionTree:CanUseTool ()
 	return false
 end
 
-function ActionTree:Clear ()
+function self:Clear ()
 	self.Type = "none"
 	self.Children = nil
 end
 
-function ActionTree:GetChild (key)
+function self:GetChild (key)
 	if not self.Children then
 		return nil
 	end
 	return self.Children [key:lower ()]
 end
 
-function ActionTree:GetChildren ()
+function self:GetChildren ()
 	return self.Children
 end
 
-function ActionTree:GetCommand ()
+function self:GetCommand ()
 	return self.Command
 end
 
-function ActionTree:GetDescription ()
+function self:GetDescription ()
 	if self.Description == nil and self.Type == "tool" then
 		gmod_tool = gmod_tool or weapons.Get ("gmod_tool")
 		if not gmod_tool then
@@ -105,35 +104,35 @@ function ActionTree:GetDescription ()
 	return self.Description
 end
 
-function ActionTree:GetEscapeKey ()
+function self:GetEscapeKey ()
 	return self.EscapeKey
 end
 
-function ActionTree:GetType ()
+function self:GetType ()
 	return self.Type
 end
 
-function ActionTree:GetUpKey ()
+function self:GetUpKey ()
 	return self.UpKey
 end
 
-function ActionTree:RunAction ()
+function self:RunAction ()
 	if self.Type == "tool" then
-		RunConsoleCommand ("tool_" .. self.Tool)
+		RunConsoleCommand ("gmod_tool", self.Tool)
 	elseif self.Type == "command" then
 		-- RunConsoleCommand does not allow multiple commands to be chained with semicolons.
 		LocalPlayer ():ConCommand (self.Command)
 	end
 end
 
-function ActionTree:SetDescription (description)
+function self:SetDescription (description)
 	self.Description = description
 end
 
-function ActionTree:SetEscapeKey (key)
+function self:SetEscapeKey (key)
 	self.EscapeKey = key
 end
 
-function ActionTree:SetUpKey (key)
+function self:SetUpKey (key)
 	self.UpKey = key
 end

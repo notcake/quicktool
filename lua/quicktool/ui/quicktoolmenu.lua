@@ -71,7 +71,7 @@ function PANEL:HighlightPrevious ()
 	return self:GetHighlightedItem ()
 end
 
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 end
 
 function PANEL:SetHighlightedItemIndex (index)

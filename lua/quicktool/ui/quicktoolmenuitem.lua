@@ -44,11 +44,11 @@ function PANEL:OnMouseReleased ()
 	self:DoClick ()
 end
 	
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 	if self.Hovered or self.Highlighted then
-		draw.RoundedBox (4, 0, 0, self:GetWide (), self.ItemHeight, Color (128, 128, 255, 192))
+		draw.RoundedBox (4, 0, 0, w, self.ItemHeight, Color (128, 128, 255, 192))
 	else
-		draw.RoundedBox (4, 0, 0, self:GetWide (), self.ItemHeight, Color (128, 128, 128, 192))
+		draw.RoundedBox (4, 0, 0, w, self.ItemHeight, Color (128, 128, 128, 192))
 	end
 end
 

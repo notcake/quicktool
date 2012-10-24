@@ -65,11 +65,11 @@ function PANEL:Clear ()
 end
 
 function PANEL:OnItemChosen (name)
-	RunConsoleCommand ("tool_" .. name)
+	RunConsoleCommand ("gmod_tool", name)
 	self:SetVisible (false)
 end
 
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 end
 
 function PANEL:PerformLayout ()
@@ -79,7 +79,7 @@ end
 function PANEL:Remove ()
 	self:SetVisible (false)
 
-	_R.Panel.Remove (self)
+	debug.getregistry ().Panel.Remove (self)
 end
 
 function PANEL:Reposition ()
@@ -116,7 +116,7 @@ function PANEL:Search (text)
 	for k, name in ipairs (found) do
 		local item = self.Menu:AddItem (tools [name].Name or name)
 		item.Name = name
-		item:SetIcon ("gui/silkicons/wrench")
+		item:SetIcon ("icon16/wrench.png")
 		item.DoClick = self.Item_DoClick
 		
 		h = h + item:GetTall ()
@@ -175,7 +175,7 @@ function PANEL:SetVisible (visible)
 	else
 		hook.Remove ("Tick", "QuickToolSearchUI")
 	end
-	_R.Panel.SetVisible (self, visible)
+	debug.getregistry ().Panel.SetVisible (self, visible)
 end
 
 vgui.Register ("QuickToolSearch", PANEL, "DFrame")

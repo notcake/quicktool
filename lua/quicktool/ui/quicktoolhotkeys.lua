@@ -64,6 +64,8 @@ function PANEL:Clear ()
 end
 
 function PANEL:OnKeyPressed (key)
+	if not self.ActionTree then return end
+
 	local child = self.ActionTree:GetChild (key)
 	if child then
 		self:PushActionTree (child)
@@ -80,7 +82,7 @@ function PANEL:OnKeyPressed (key)
 	end
 end
 
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 end
 
 function PANEL:PerformLayout ()
@@ -97,8 +99,8 @@ function PANEL:PushActionTree (tree)
 	self:SetActionTree (tree)
 end
 
-function PANEL:Reposition (n)
-	self:SetPos ((ScrW () - self:GetWide ()) * 0.5, ScrH () * 0.5 - 22 * (n - 0.5))
+function PANEL:Reposition (itemsAboveCrosshair)
+	self:SetPos ((ScrW () - self:GetWide ()) * 0.5, ScrH () * 0.5 - 22 * (itemsAboveCrosshair - 0.5))
 end
 
 function PANEL:RequestFocus ()
@@ -107,16 +109,14 @@ end
 	
 function PANEL:Remove ()
 	self:SetVisible (false)
-	_R.Panel.Remove (self)
+	debug.getregistry ().Panel.Remove (self)
 end
 	
 function PANEL:SetActionTree (tree)
 	self.Menu:Clear ()
 	
-	if not tree then
-		self:SetVisible (false)
-		return
-	end
+	if not tree then return end
+	
 	if tree:GetType () == "tree" then
 		self.ActionTree = tree
 		for k, child in pairs (tree:GetChildren ()) do
@@ -148,6 +148,19 @@ function PANEL:SetActionTree (tree)
 		self.Menu:AddSpacer ():SetSortKey ("!z")
 		
 		self.Menu:Sort ()
+	elseif tree:GetType () == "none" then
+		self.ActionTree = tree
+		
+		-- Escape menu item
+		local item = self.Menu:AddItem ()
+		local escapeKey = self.ActionTree:GetEscapeKey ()
+		item:SetKey (escapeKey and escapeKey or "ESC")
+		item:SetSortKey ("!1")
+		item:SetText ("Escape")
+		item.DoClick = self.Item_DoClick
+		
+		self:Reposition (1)
+		self.Menu:Sort ()
 	else
 		self:SetVisible (false)
 		tree:RunAction ()
@@ -177,7 +190,7 @@ function PANEL:SetVisible (visible)
 	else
 		hook.Remove ("Tick", "QuickToolHotkeyMenu")
 	end
-	_R.Panel.SetVisible (self, visible)
+	debug.getregistry ().Panel.SetVisible (self, visible)
 end
 
 vgui.Register ("QuickToolHotkeys", PANEL, "DFrame")

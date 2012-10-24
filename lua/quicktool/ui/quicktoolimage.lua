@@ -15,10 +15,10 @@ function PANEL:GetImage ()
 	return self.Image
 end
 
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 	if self.Image then
-		local Image = QuickTool.ImageCache:GetImage (self.Image)
-		Image:Draw ((self:GetWide () - Image:GetWidth ()) * 0.5, (self:GetTall () - Image:GetHeight ()) * 0.5)
+		local image = QuickTool.ImageCache:GetImage (self.Image)
+		image:Draw ((self:GetWide () - image:GetWidth ()) * 0.5, (self:GetTall () - image:GetHeight ()) * 0.5)
 	end
 end
 

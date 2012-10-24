@@ -1,3 +1,6 @@
+AddCSLuaFile ("autorun/quicktool.lua")
+
+AddCSLuaFile ("quicktool/cl_init.lua")
 AddCSLuaFile ("quicktool/actiontree.lua")
 AddCSLuaFile ("quicktool/hotkeys.lua")
 AddCSLuaFile ("quicktool/search.lua")

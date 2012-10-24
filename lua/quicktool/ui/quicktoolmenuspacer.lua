@@ -6,7 +6,7 @@ function PANEL:Init ()
 	self.SortKey = ""
 end
 
-function PANEL:Paint ()
+function PANEL:Paint (w, h)
 end
 
 vgui.Register ("QuickToolMenuSpacer", PANEL, "QuickToolMenuItem")
