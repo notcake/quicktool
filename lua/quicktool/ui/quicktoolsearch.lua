@@ -25,21 +25,22 @@ function PANEL:Init ()
 	self.Searchbox:SetPos (0, 0)
 	self.Searchbox:SetWide (self:GetWide ())
 	
-	self.Searchbox.OnEnter = function (textbox)
-		if self.Menu:GetHighlightedItem () then
-			self:OnItemChosen (self.Menu:GetHighlightedItem ().Name)
-		else
-			self:SetVisible (false)
-		end
-	end
-	
-	self.Searchbox.OnKeyCodePressed = function (textbox, key)
+	self.Searchbox.OnKeyCodeTyped = function (textbox, key)
 		if key == KEY_UP then
 			self:SelectPrevious ()
 		elseif key == KEY_DOWN then
 			self:SelectNext ()
 		elseif key == KEY_TAB then
 			self:SetVisible (false)
+		elseif key == KEY_ENTER then
+			if self.Menu:GetHighlightedItem () then
+				self:OnItemChosen (self.Menu:GetHighlightedItem ().Name)
+			else
+				self:SetVisible (false)
+			end
+		elseif key == KEY_ESCAPE then
+			self:SetVisible (false)
+			gui.HideGameUI ()
 		end
 	end
 	
@@ -154,26 +155,10 @@ function PANEL:SelectPrevious ()
 	self.HighlightedName = item.Name
 end
 
-function PANEL:Think ()
-	if input.IsKeyDown (KEY_ESCAPE) then
-		RunConsoleCommand ("cancelselect")
-		self:SetVisible (false)
-	end
-end
-
 function PANEL:SetVisible (visible)
 	if visible then
 		self:Clear ()
 		self:RequestFocus ()
-		
-		hook.Add ("Tick", "QuickToolSearchUI", function ()
-			if input.IsKeyDown (KEY_ESCAPE) then
-				RunConsoleCommand ("cancelselect")
-				self:SetVisible (false)
-			end
-		end)
-	else
-		hook.Remove ("Tick", "QuickToolSearchUI")
 	end
 	debug.getregistry ().Panel.SetVisible (self, visible)
 end

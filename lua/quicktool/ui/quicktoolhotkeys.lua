@@ -30,13 +30,18 @@ function PANEL:Init ()
 		self:SetVisible (false)
 	end
 	
-	self.TextEntry.OnKeyCodePressed = function (textbox, key)
+	self.TextEntry.OnKeyCodeTyped = function (textbox, key)
 		if key == KEY_TAB then
-			timer.Simple (0, function ()
-				if textbox:IsValid () then
-					textbox:RequestFocus ()
+			timer.Simple (0.001,
+				function ()
+					if textbox:IsValid () then
+						textbox:RequestFocus ()
+					end
 				end
-			end)
+			)
+		elseif key == KEY_ESCAPE then
+			self:SetVisible (false)
+			gui.HideGameUI ()
 		end
 	end
 	
@@ -78,6 +83,7 @@ function PANEL:OnKeyPressed (key)
 	end
 	if key == "ESC" then
 		self:SetVisible (false)
+		gui.HideGameUI ()
 		return
 	end
 end
@@ -167,28 +173,12 @@ function PANEL:SetActionTree (tree)
 	end
 end
 
-function PANEL:Think ()
-	if input.IsKeyDown (KEY_ESCAPE) then
-		RunConsoleCommand ("cancelselect")
-		self:SetVisible (false)
-	end
-end
-
 function PANEL:SetVisible (visible)
 	if visible then
 		self:Clear ()
 		self:RequestFocus ()
 		
 		self:PushActionTree (QuickTool.Hotkeys)
-		
-		hook.Add ("Tick", "QuickToolHotkeyMenu", function ()
-			if input.IsKeyDown (KEY_ESCAPE) then
-				RunConsoleCommand ("cancelselect")
-				self:SetVisible (false)
-			end
-		end)
-	else
-		hook.Remove ("Tick", "QuickToolHotkeyMenu")
 	end
 	debug.getregistry ().Panel.SetVisible (self, visible)
 end
