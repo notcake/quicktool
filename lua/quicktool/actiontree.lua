@@ -119,6 +119,7 @@ end
 function self:RunAction ()
 	if self.Type == "tool" then
 		RunConsoleCommand ("gmod_tool", self.Tool)
+		RunConsoleCommand ("toolcpanel", self.Tool)
 	elseif self.Type == "command" then
 		-- RunConsoleCommand does not allow multiple commands to be chained with semicolons.
 		LocalPlayer ():ConCommand (self.Command)
