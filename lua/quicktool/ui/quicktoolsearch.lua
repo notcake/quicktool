@@ -67,6 +67,7 @@ end
 
 function PANEL:OnItemChosen (name)
 	RunConsoleCommand ("gmod_tool", name)
+	RunConsoleCommand ("gmod_toolmode", name)
 	
 	local tool = weapons.GetStored ('gmod_tool').Tool [name];
 	if tool then

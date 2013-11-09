@@ -119,6 +119,7 @@ end
 function self:RunAction ()
 	if self.Type == "tool" then
 		RunConsoleCommand ("gmod_tool", self.Tool)
+		RunConsoleCommand ("gmod_toolmode", self.Tool)
 		
 		local tool = weapons.GetStored ('gmod_tool').Tool [name];
 		if tool then
