@@ -67,6 +67,25 @@ end
 
 function PANEL:OnItemChosen (name)
 	RunConsoleCommand ("gmod_tool", name)
+	
+	local tool = weapons.GetStored ('gmod_tool').Tool [name];
+	if tool then
+		local cp = controlpanel.Get (name)
+		if not cp:GetInitialized () then
+			cp:FillViaTable (
+				{
+					Name = name,
+					Text = tool.Name or "#" .. name,
+					Controls = tool.ConfigName or name,
+					Command = tool.Command or "gmod_tool " .. name,
+					ControlPanelBuildFunction = tool.BuildCPanel
+				}
+			)
+		end
+		
+		spawnmenu.ActivateToolPanel (1, cp)
+	end
+	
 	self:SetVisible (false)
 end
 

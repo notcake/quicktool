@@ -119,7 +119,24 @@ end
 function self:RunAction ()
 	if self.Type == "tool" then
 		RunConsoleCommand ("gmod_tool", self.Tool)
-		RunConsoleCommand ("toolcpanel", self.Tool)
+		
+		local tool = weapons.GetStored ('gmod_tool').Tool [name];
+		if tool then
+			local cp = controlpanel.Get (name)
+			if not cp:GetInitialized () then
+				cp:FillViaTable (
+					{
+						Name = name,
+						Text = tool.Name or "#" .. name,
+						Controls = tool.ConfigName or name,
+						Command = tool.Command or "gmod_tool " .. name,
+						ControlPanelBuildFunction = tool.BuildCPanel
+					}
+				)
+			end
+			
+			spawnmenu.ActivateToolPanel (1, cp)
+		end
 	elseif self.Type == "command" then
 		-- RunConsoleCommand does not allow multiple commands to be chained with semicolons.
 		LocalPlayer ():ConCommand (self.Command)
