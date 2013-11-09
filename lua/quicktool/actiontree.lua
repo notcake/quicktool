@@ -121,16 +121,16 @@ function self:RunAction ()
 		RunConsoleCommand ("gmod_tool", self.Tool)
 		RunConsoleCommand ("gmod_toolmode", self.Tool)
 		
-		local tool = weapons.GetStored ('gmod_tool').Tool [name];
+		local tool = weapons.GetStored ('gmod_tool').Tool [self.Tool];
 		if tool then
-			local cp = controlpanel.Get (name)
+			local cp = controlpanel.Get (self.Tool)
 			if not cp:GetInitialized () then
 				cp:FillViaTable (
 					{
-						Name = name,
-						Text = tool.Name or "#" .. name,
-						Controls = tool.ConfigName or name,
-						Command = tool.Command or "gmod_tool " .. name,
+						Name = self.Tool,
+						Text = tool.Name or "#" .. self.Tool,
+						Controls = tool.ConfigName or self.Tool,
+						Command = tool.Command or "gmod_tool " .. self.Tool,
 						ControlPanelBuildFunction = tool.BuildCPanel
 					}
 				)
