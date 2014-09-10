@@ -8,6 +8,10 @@ function PANEL:Init ()
 	self:SetMouseInputEnabled (true)
 	self:SetKeyboardInputEnabled (true)
 	
+	self.btnMinim:Remove ()
+	self.btnMinim = nil
+	self.btnMaxim:Remove ()
+	self.btnMaxim = nil
 	self.btnClose:Remove ()
 	self.btnClose = nil
 	self.lblTitle:Remove ()
