@@ -79,9 +79,11 @@ function PANEL:OnKeyPressed (key)
 	if child then
 		self:PushActionTree (child)
 	else
-		if self.ActionTree:GetUpKey ():lower () == key:lower () then
+		if self.ActionTree:GetUpKey () and
+		   string.lower (self.ActionTree:GetUpKey ()) == string.lower (key) then
 			self:PopActionTree ()
-		elseif self.ActionTree:GetEscapeKey () and self.ActionTree:GetEscapeKey ():lower () == key:lower () then
+		elseif self.ActionTree:GetEscapeKey () and
+		       string.lower (self.ActionTree:GetEscapeKey ()) == string.lower (key) then
 			self:SetVisible (false)
 		end
 	end
